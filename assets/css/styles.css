@@ -59,6 +59,14 @@ body * {
   margin-top: 0;
 }
 
+.w-full {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .spacer-12 {
   height: 12rem;
 }
@@ -95,6 +103,10 @@ body * {
   color: #c5cfd8;
 }
 
+.apricot {
+  color: #fbbc79;
+}
+
 /**
  * Layout 
  */
@@ -122,9 +134,15 @@ h1 {
   font-weight: bold;
 }
 
-h2 {
+h2,
+h3 {
   font-size: 1.25rem;
   line-height: 1.36rem;
+}
+
+h2.larger {
+  font-size: 2.5rem;
+  line-height: 2.72rem;
 }
 
 p {
@@ -300,6 +318,7 @@ a.cta.alt2:hover {
   position: relative;
   z-index: 1;
 }
+
 .hero {
   padding: 5% 7%;
 }
