@@ -39,6 +39,7 @@ html {
   height: 100%;
   top: 0;
   left: 0;
+  overflow-x: hidden;
 }
 
 body {
@@ -71,8 +72,20 @@ body * {
   height: 12rem;
 }
 
+.no-underline {
+  text-decoration: none;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.p-2 {
+  padding: 2rem;
+}
+
 /**
- * Keyframes for Animations
+ * Animations
  */
 @keyframes spin {
   0% {
@@ -83,19 +96,46 @@ body * {
   }
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideRightFadeIn {
+  0% {
+    transform: translateX(-25vw);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0vw);
+    opacity: 1;
+  }
+}
+
+@keyframes waveIntro {
+  0% {
+    transform: translateY(50%) translateX(-5vw) scale(0.7, 1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(50%) translateX(0vw) scale(1, 1);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+}
+
 /**
  * Colors
  */
-.blue {
-  color: #6f97f6;
-}
-
-.dark-blue {
-  color: #0c1a3b;
-}
-
-.dark-blue-bg {
-  background-color: #0c1a3b;
+.white {
   color: white;
 }
 
@@ -103,8 +143,33 @@ body * {
   color: #c5cfd8;
 }
 
-.apricot {
+.accent1 {
+  color: #6f97f6;
+}
+
+.accent2 {
+  color: #a1bdf3;
+}
+
+.accent3 {
+  color: #0c1a3b;
+}
+
+.bg-accent3 {
+  background-color: #0c1a3b;
+  color: white;
+}
+
+.accent4 {
   color: #fbbc79;
+}
+
+.bg-accent4 {
+  background-color: #fbbc79;
+}
+
+.accent5 {
+  color: #ee795f;
 }
 
 /**
@@ -112,7 +177,15 @@ body * {
  */
 .content {
   width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 1279px) {
+  .content {
+    width: 90%;
+    max-width: 90%;
+  }
 }
 
 .grid {
@@ -135,7 +208,9 @@ h1 {
 }
 
 h2,
-h3 {
+.h2,
+h3,
+.h3 {
   font-size: 1.25rem;
   line-height: 1.36rem;
 }
@@ -265,11 +340,16 @@ a.cta.alt2:hover {
   color: white;
 }
 
-.header-nav a:not(.nofx)::after {
+a.fx {
+  padding: 8px 0;
+}
+
+.header-nav a:not(.nofx)::after,
+a.fx::after {
   content: "";
   display: block;
   position: absolute;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid currentColor;
   bottom: -3px;
   left: 50%;
   width: 0;
@@ -278,7 +358,8 @@ a.cta.alt2:hover {
   transition: all 250ms ease;
 }
 
-.header-nav a:not(.nofx):hover::after {
+.header-nav a:not(.nofx):hover::after,
+a.fx:hover::after {
   width: 100%;
   left: 0;
   opacity: 1;
@@ -292,23 +373,25 @@ a.cta.alt2:hover {
  * Hero (Content Section 1)
  */
 .illustration {
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
   transform: scale(1.1);
 }
 
-.spin-clockwise {
+.gear-clockwise {
   transform-box: fill-box;
   transform-origin: center;
   animation: spin;
-  animation-duration: 6s;
+  animation-duration: 7s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-.spin-counter-clockwise {
+.gear-counter-clockwise {
   transform-box: fill-box;
   transform-origin: center;
   animation: spin;
-  animation-duration: 6s;
+  animation-duration: 7s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-direction: reverse;
@@ -331,7 +414,7 @@ a.cta.alt2:hover {
   position: absolute;
   width: 100%;
   height: auto;
-  z-index: -1;
+  z-index: 0;
   left: 0;
   bottom: 0;
 }
@@ -339,14 +422,46 @@ a.cta.alt2:hover {
 .hero-outer .waves svg {
   width: 100%;
   height: auto;
-  transform: scale(2);
+  transform: scale(1.35);
+}
+
+@media screen and (min-width: 1280px) {
+  .hero-outer .waves svg {
+    transform: scale(1.35);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .hero-outer .waves svg {
+    transform: scale(1.5);
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .hero-outer .waves svg {
+    transform: scale(1.7);
+  }
 }
 
 .hero-outer .wave {
   position: absolute;
   bottom: 0;
   left: 0;
+  opacity: 0;
   transform: translateY(50%);
+  animation: waveIntro 1.5s ease 0s 1 forwards;
+}
+
+.hero-outer .wave:nth-child(3) {
+  animation-delay: 250ms;
+}
+
+.hero-outer .wave:nth-child(2) {
+  animation-delay: 500ms;
+}
+
+.hero-outer .wave:nth-child(1) {
+  animation-delay: 1650ms;
 }
 
 .hero .progress-dots {
@@ -364,17 +479,18 @@ a.cta.alt2:hover {
   text-align: center;
 }
 
-.dot.glow {
+.hero-outer .progress-dots .dot-item .dot.glow {
   background-color: #fbbc79;
   box-shadow: 0px 2px 20px 3px #6f97f6;
 }
 
-.dot.glow + span {
+.hero-outer .progress-dots .dot-item .dot.glow + span {
   color: #fbbc79;
 }
 
 .hero-outer .progress-dots .dot-item .dot {
   display: inline-block;
+  opacity: 0;
   border-radius: 100%;
   width: 25px;
   height: 25px;
@@ -384,11 +500,42 @@ a.cta.alt2:hover {
 .hero-outer .progress-dots .dot-item span {
   position: absolute;
   display: block;
-  width: 100%;
+  width: 300%;
+  opacity: 0;
   margin-top: 2rem;
   font-size: 1.25rem;
   line-height: 1.36rem;
-  transform: translateX(-50%);
+  transform: translateX(-33%);
+  animation: fadeIn 2s forwards;
+}
+
+.hero-outer .progress-dots .dot-item .dot {
+  animation: slideRightFadeIn 2s forwards;
+}
+
+.hero-outer .progress-dots .dot-item:nth-child(2) .dot,
+.hero-outer .progress-dots .dot-item:nth-child(2) span {
+  animation-delay: 250ms;
+}
+
+.hero-outer .progress-dots .dot-item:nth-child(3) .dot,
+.hero-outer .progress-dots .dot-item:nth-child(3) span {
+  animation-delay: 550ms;
+}
+
+.hero-outer .progress-dots .dot-item:nth-child(4) .dot,
+.hero-outer .progress-dots .dot-item:nth-child(4) span {
+  animation-delay: 1500ms;
+}
+
+.hero-outer .progress-dots .dot-item:nth-child(5) .dot,
+.hero-outer .progress-dots .dot-item:nth-child(5) span {
+  animation-delay: 1850ms;
+}
+
+.hero-outer .progress-dots .dot-item:nth-child(6) .dot,
+.hero-outer .progress-dots .dot-item:nth-child(6) span {
+  animation-delay: 2700ms;
 }
 
 @media screen and (max-width: 680px) {
@@ -403,7 +550,7 @@ a.cta.alt2:hover {
 .orbit {
   width: 100px;
   height: auto;
-  z-index: 0;
+  z-index: 2;
 }
 
 .orbit svg {
@@ -411,10 +558,75 @@ a.cta.alt2:hover {
   height: auto;
   transform: scale(1.3) translateX(-10%) translateZ(0);
 }
+
 .orbit .planet {
   transform-origin: center;
   animation-name: spin;
   animation-timing-function: linear;
   animation-duration: 36.5s;
   animation-iteration-count: infinite;
+}
+
+.logos-wrapper {
+  background-image: url(../svg/bg-logos.svg);
+  background-position: 90% center;
+  background-repeat: no-repeat;
+}
+
+.logos {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.logos img {
+  display: inline-block;
+  margin: 30px 20px;
+}
+
+/**
+ * Content Section 3
+ */
+.content-3 {
+  padding: 100px 0;
+}
+
+.bg-wave {
+  overflow: visible;
+  background-image: url(../svg/backgrounds/bg-wave.svg);
+  background-position: bottom center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-image: linear-gradient(#0c1a3b, transparent);
+}
+
+.bg-dots {
+  overflow: visible;
+  background-image: url(../svg/backgrounds/bg-dots1.svg);
+  background-position: bottom left;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/**
+ * Content Section 4
+ */
+.content-4 {
+  padding: 100px 0;
+}
+
+.content-4 .content.cta {
+  padding: 50px 0;
+  background-image: url(../svg/backgrounds/bg-dots2.svg);
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
