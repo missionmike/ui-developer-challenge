@@ -415,6 +415,6 @@ a.cta.alt2:hover {
   transform-origin: center;
   animation-name: spin;
   animation-timing-function: linear;
-  animation-duration: 6s;
+  animation-duration: 36.5s;
   animation-iteration-count: infinite;
 }
