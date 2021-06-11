@@ -1,3 +1,37 @@
+/**
+ * Notes
+ * 
+ * While CSS variables would've been useful, I've avoided them here
+ * due to lack of IE support: https://caniuse.com/css-variables
+ */
+
+/**
+ * Fonts
+ * 
+ * Keeping fonts housed locally vs. relying on Google Fonts CDN.
+ * The less dependency on 3rd party resources, the better, imo.
+ */
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/Archivo-Bold.woff2") format("woff2"),
+    url("../fonts/Archivo-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/Archivo-Regular.woff2") format("woff2"),
+    url("../fonts/Archivo-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/**
+ * Global
+ */
 body,
 html {
   position: relative;
@@ -7,6 +41,10 @@ html {
   left: 0;
 }
 
+body {
+  font-size: 16px;
+}
+
 body,
 body * {
   position: relative;
@@ -14,31 +52,350 @@ body * {
   font-family: "Archivo", sans-serif;
 }
 
-.columns-12 {
-  position: relative;
-  width: 1280px;
-  margin: 0 auto;
-  column-count: 12;
-  column-gap: 20px;
+/**
+ * Utilities
+ */
+.mt-0 {
+  margin-top: 0;
 }
 
-header {
+.spacer-12 {
+  height: 12rem;
+}
+
+/**
+ * Keyframes for Animations
+ */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/**
+ * Colors
+ */
+.blue {
+  color: #6f97f6;
+}
+
+.dark-blue {
+  color: #0c1a3b;
+}
+
+.dark-blue-bg {
+  background-color: #0c1a3b;
+  color: white;
+}
+
+.gray {
+  color: #c5cfd8;
+}
+
+/**
+ * Layout 
+ */
+.content {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-gap: 2rem;
+}
+
+/**
+ * Typography
+ * 
+ * Mockup uses px, however using rem in CSS for easier
+ * responsive scaling. 2.5rem = 40px, as <body> has a 16px
+ * base font size. 16px = 1rem.
+ */
+h1 {
+  font-size: 2.5rem;
+  line-height: 2.72rem; /* 43.52px */
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.25rem;
+  line-height: 1.36rem;
+}
+
+p {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  margin-top: 1rem;
+}
+
+/**
+ * Buttons
+ */
+a.cta {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 4px;
+  transition: all 250ms ease;
+  box-shadow: 0 0 0 transparent;
+  border: 1px solid transparent;
+  text-decoration: none;
+  background-color: #6f97f6; /* Default */
+}
+
+a.cta:hover {
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  border: 1px solid white;
+}
+
+a.cta.alt1 {
+  background-color: #fbbc79;
+  color: #172a58;
+  font-weight: bold;
+}
+
+a.cta.alt1:hover {
+  background-color: white;
+  color: #172a58;
+  font-weight: bold;
+}
+
+a.cta.alt2 {
+  background-color: transparent;
+  color: #6f97f6;
+}
+
+a.cta.alt2::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0.97rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid #6f97f6;
+  border-bottom: 2px solid #6f97f6;
+  transform: rotate(-45deg) translateX(0) translateY(0) translateZ(0);
+  transition: transform 250ms ease;
+}
+
+a.cta.alt2:hover::after {
+  border-right: 2px solid #c5cfd8;
+  border-bottom: 2px solid #c5cfd8;
+  transform: rotate(-405deg) translateX(0.125rem) translateY(0.125rem)
+    translateZ(0);
+}
+
+a.cta.alt2:hover {
+  box-shadow: none;
+  border: 1px solid transparent;
+  color: #c5cfd8;
+}
+
+/**
+ * Header and Nav 
+ */
+.icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.icon svg {
+  position: relative;
+  align-self: flex-start;
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+.icon a svg {
+  filter: drop-shadow(0 0 0 #0c1a3b);
+  transition: filter 350ms linear;
+}
+
+.icon a:hover svg {
+  filter: drop-shadow(0 0 7px white);
+}
+
+#top-header {
   width: 100%;
   height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #0c1a3b;
 }
 
-header nav {
+.header-nav {
   width: 100%;
   display: flex;
+  flex-grow: 1;
   flex-direction: row;
-  outline: 1px solid red;
+  align-items: middle;
+  justify-content: space-between;
+  padding: 1rem 0;
 }
 
-header a {
+.header-nav a {
+  display: inline-block;
+  padding: 8px 24px;
+  text-decoration: none;
   color: white;
+}
+
+.header-nav a:not(.nofx)::after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-bottom: 1px solid white;
+  bottom: -3px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: all 250ms ease;
+}
+
+.header-nav a:not(.nofx):hover::after {
+  width: 100%;
+  left: 0;
+  opacity: 1;
+}
+
+#nav span {
+  display: inline-block;
+}
+
+/**
+ * Hero (Content Section 1)
+ */
+.illustration {
+  transform: scale(1.1);
+}
+
+.spin-clockwise {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin;
+  animation-duration: 6s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.spin-counter-clockwise {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: reverse;
+}
+
+.hero-outer {
+  position: relative;
+  z-index: 1;
+}
+.hero {
+  padding: 5% 7%;
+}
+
+.hero h2 {
+  margin-top: 4rem;
+}
+
+.hero-outer .waves {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  z-index: -1;
+  left: 0;
+  bottom: 0;
+}
+
+.hero-outer .waves svg {
+  width: 100%;
+  height: auto;
+  transform: scale(2);
+}
+
+.hero-outer .wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(50%);
+}
+
+.hero .progress-dots {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(50%);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.hero-outer .progress-dots .dot-item {
+  text-align: center;
+}
+
+.dot.glow {
+  background-color: #fbbc79;
+  box-shadow: 0px 2px 20px 3px #6f97f6;
+}
+
+.dot.glow + span {
+  color: #fbbc79;
+}
+
+.hero-outer .progress-dots .dot-item .dot {
+  display: inline-block;
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+}
+
+.hero-outer .progress-dots .dot-item span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  line-height: 1.36rem;
+  transform: translateX(-50%);
+}
+
+@media screen and (max-width: 680px) {
+  .hero br {
+    display: none;
+  }
+}
+
+/**
+ * Content Section 2
+ */
+.orbit {
+  width: 100px;
+  height: auto;
+  z-index: 0;
+}
+
+.orbit svg {
+  width: 100%;
+  height: auto;
+  transform: scale(1.3) translateX(-10%) translateZ(0);
+}
+.orbit .planet {
+  transform-origin: center;
+  animation-name: spin;
+  animation-timing-function: linear;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
 }
