@@ -305,13 +305,17 @@ a.cta.alt2:hover {
   width: auto;
 }
 
-.icon a svg {
+.icon a svg,
+.logos a img {
   filter: drop-shadow(0 0 0 #0c1a3b);
-  transition: filter 350ms linear;
+  transform: scale(1);
+  transition: all 250ms linear;
 }
 
-.icon a:hover svg {
-  filter: drop-shadow(0 0 7px white);
+.icon a:hover svg,
+.logos a:hover img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 7px rgba(251, 188, 121, 0.5));
 }
 
 #top-header {
@@ -568,7 +572,7 @@ a.fx:hover::after {
 }
 
 .logos-wrapper {
-  background-image: url(../svg/bg-logos.svg);
+  background-image: url(../svg/backgrounds/bg-logos.svg);
   background-position: 90% center;
   background-repeat: no-repeat;
 }
