@@ -112,12 +112,29 @@ body * {
 /**
  * Animations
  */
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -130,6 +147,17 @@ body * {
   }
 }
 
+@-webkit-keyframes slideRightFadeIn {
+  0% {
+    transform: translateX(-25vw);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0vw);
+    opacity: 1;
+  }
+}
+
 @keyframes slideRightFadeIn {
   0% {
     transform: translateX(-25vw);
@@ -137,6 +165,17 @@ body * {
   }
   100% {
     transform: translateX(0vw);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes waveIntro {
+  0% {
+    transform: translateY(50%) translateX(-5vw) scale(0.7, 1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(50%) translateX(0vw) scale(1, 1);
     opacity: 1;
   }
 }
@@ -154,6 +193,7 @@ body * {
 
 .fade-in {
   opacity: 0;
+  -webkit-animation: fadeIn 2s ease forwards;
   animation: fadeIn 2s ease forwards;
 }
 
@@ -336,13 +376,13 @@ a.cta.alt2:hover {
 /**
  * Header and Nav 
  */
-.icon {
+.logo {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.icon svg {
+.logo svg {
   position: relative;
   align-self: flex-start;
   display: block;
@@ -350,14 +390,15 @@ a.cta.alt2:hover {
   width: auto;
 }
 
-.icon a svg,
+.logo a svg,
 .logos a img {
+  -webkit-filter: drop-shadow(0 0 0 transparent);
   filter: drop-shadow(0 0 0 transparent);
   transform: scale(1) translateZ(0);
   transition: all 250ms linear;
 }
 
-.icon a:hover svg,
+.logo a:hover svg,
 .logos a:hover img {
   transform: scale(1.07) translateZ(0);
 }
@@ -366,16 +407,25 @@ a.cta.alt2:hover {
   transform: scale(0.95) translateZ(0);
 }
 
-.icon a:hover svg {
+.logo a:hover svg {
+  -webkit-filter: drop-shadow(0 0 7px rgba(251, 188, 121, 0.5));
   filter: drop-shadow(0 0 7px rgba(251, 188, 121, 0.5));
 }
 
 .logos a:hover img {
+  -webkit-filter: drop-shadow(0 0 7px rgba(0, 0, 0, 0.5));
   filter: drop-shadow(0 0 7px rgba(0, 0, 0, 0.5));
 }
 
 #top-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   width: 100%;
+  z-index: 10;
+  background-color: rgba(12, 26, 59, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .top-header-inner {
@@ -387,6 +437,7 @@ a.cta.alt2:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   grid-gap: 2rem;
+  align-items: center;
 }
 
 @media screen and (max-width: 1024px) {
@@ -408,8 +459,66 @@ a.cta.alt2:hover {
   .header-nav {
     justify-content: space-around;
   }
+
   .header-nav span:nth-child(3) {
     display: none;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  body {
+    padding-top: 80px;
+  }
+
+  #top-header {
+    position: fixed;
+    height: 100%;
+    max-height: 60px;
+    opacity: 1;
+    overflow: hidden;
+    background-color: rgba(12, 26, 59, 0.6);
+    transition: all 750ms ease;
+  }
+
+  #mobile-menu-toggle.open + #top-header {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(12, 26, 59, 0.9);
+    opacity: 1;
+    max-height: 100vh;
+  }
+
+  #mobile-menu-toggle.open + #top-header .logo svg {
+    transform: translateY(0);
+  }
+  #top-header .logo svg {
+    transition-duration: 450ms;
+    transform: translateY(-10px);
+  }
+
+  .top-header-inner {
+    position: fixed;
+    display: block;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .top-header-inner .logo svg {
+    display: inline-block;
+  }
+
+  .header-nav {
+    display: block;
+  }
+
+  .header-nav span {
+    display: block;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    border-bottom: 1px solid #c5cfd8;
+    font-size: 1.5rem;
   }
 }
 
@@ -458,11 +567,93 @@ a.fx.has-arrow:hover svg {
 }
 
 /**
+ * Mobile Nav Menu
+ */
+#mobile-menu-toggle {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  transition: background-color 300ms ease;
+  cursor: pointer;
+  z-index: 25;
+}
+
+.menu-icon {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  margin: auto auto;
+  top: 2.5%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: rotate(0deg);
+  transition: 0.5s ease-in-out;
+}
+
+.menu-icon span {
+  display: block;
+  position: absolute;
+  height: 15%;
+  width: 100%;
+  background: #fff;
+  border-radius: 0;
+  opacity: 1;
+  left: 0;
+  transform-origin: left center;
+  transform: rotate(0deg);
+  transition: 400ms ease;
+}
+
+.menu-icon span:nth-child(1) {
+  top: 5%;
+}
+
+.menu-icon span:nth-child(2) {
+  top: 40%;
+}
+
+.menu-icon span:nth-child(3) {
+  top: 75%;
+}
+
+#mobile-menu-toggle.open .menu-icon span:nth-child(1),
+.menu-icon.open span:nth-child(2) {
+  transform: rotate(45deg);
+  left: 15%;
+}
+
+#mobile-menu-toggle.open .menu-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+#mobile-menu-toggle.open .menu-icon span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 75%;
+  left: 15%;
+}
+
+/**
  * Hero (Content Section 1)
  */
+.block-1::before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: -80px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #0c1a3b;
+}
+
 .block-1 .illustration {
   position: relative;
   opacity: 0;
+  -webkit-animation: fadeIn 2s ease forwards;
   animation: fadeIn 2s ease forwards;
   transform: scale(1.1);
   max-height: 100%;
@@ -497,18 +688,26 @@ a.fx.has-arrow:hover svg {
 .gear-clockwise {
   transform-box: fill-box;
   transform-origin: center;
+  -webkit-animation: spin;
   animation: spin;
+  -webkit-animation-duration: 7s;
   animation-duration: 7s;
+  -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
 
 .gear-counter-clockwise {
   transform-box: fill-box;
   transform-origin: center;
+  -webkit-animation: spin;
   animation: spin;
+  -webkit-animation-duration: 7s;
   animation-duration: 7s;
+  -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
   animation-direction: reverse;
 }
@@ -590,18 +789,22 @@ a.fx.has-arrow:hover svg {
   left: 0;
   opacity: 0;
   transform: translateY(50%);
+  -webkit-animation: waveIntro 1.5s ease 0s 1 forwards;
   animation: waveIntro 1.5s ease 0s 1 forwards;
 }
 
 .hero-outer .wave:nth-child(3) {
+  -webkit-animation-delay: 250ms;
   animation-delay: 250ms;
 }
 
 .hero-outer .wave:nth-child(2) {
+  -webkit-animation-delay: 500ms;
   animation-delay: 500ms;
 }
 
 .hero-outer .wave:nth-child(1) {
+  -webkit-animation-delay: 1650ms;
   animation-delay: 1650ms;
 }
 
@@ -653,6 +856,7 @@ a.fx.has-arrow:hover svg {
   font-size: 1.25rem;
   line-height: 1.36rem;
   transform: translateX(-33%);
+  -webkit-animation: fadeIn 2s forwards;
   animation: fadeIn 2s forwards;
 }
 
@@ -663,31 +867,37 @@ a.fx.has-arrow:hover svg {
 }
 
 .hero-outer .progress-dots .dot-item .dot {
+  -webkit-animation: slideRightFadeIn 2s forwards;
   animation: slideRightFadeIn 2s forwards;
 }
 
 .hero-outer .progress-dots .dot-item:nth-child(2) .dot,
 .hero-outer .progress-dots .dot-item:nth-child(2) span {
+  -webkit-animation-delay: 250ms;
   animation-delay: 250ms;
 }
 
 .hero-outer .progress-dots .dot-item:nth-child(3) .dot,
 .hero-outer .progress-dots .dot-item:nth-child(3) span {
+  -webkit-animation-delay: 550ms;
   animation-delay: 550ms;
 }
 
 .hero-outer .progress-dots .dot-item:nth-child(4) .dot,
 .hero-outer .progress-dots .dot-item:nth-child(4) span {
+  -webkit-animation-delay: 1500ms;
   animation-delay: 1500ms;
 }
 
 .hero-outer .progress-dots .dot-item:nth-child(5) .dot,
 .hero-outer .progress-dots .dot-item:nth-child(5) span {
+  -webkit-animation-delay: 1850ms;
   animation-delay: 1850ms;
 }
 
 .hero-outer .progress-dots .dot-item:nth-child(6) .dot,
 .hero-outer .progress-dots .dot-item:nth-child(6) span {
+  -webkit-animation-delay: 2700ms;
   animation-delay: 2700ms;
 }
 
@@ -742,9 +952,13 @@ a.fx.has-arrow:hover svg {
 
 .orbit .planet {
   transform-origin: center;
+  -webkit-animation-name: spin;
   animation-name: spin;
+  -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
+  -webkit-animation-duration: 36.5s;
   animation-duration: 36.5s;
+  -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8" />
@@ -7,12 +7,6 @@
 	<meta name="robots" value="noindex" />
 
 	<title>UI Developer Challenge | Wonderful</title>
-
-	<script>
-		document.documentElement.classList.remove("no-js");
-		document.documentElement.classList.add("js");
-
-	</script>
 
 	<link rel="stylesheet" href="assets/css/reset.css" />
 	<link rel="stylesheet" href="assets/css/styles.css" />
@@ -35,9 +29,16 @@
 </head>
 
 <body>
+	<div id="mobile-menu-toggle" class="mobile-only">
+		<div class="menu-icon">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
 	<header id="top-header" class="bg-accent3">
 		<div class="top-header-inner">
-			<div class="icon">
+			<div class="logo">
 				<a href="#home">
 					<svg viewBox="0 0 79.9 76">
 						<path fill="white"
