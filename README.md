@@ -30,16 +30,16 @@ _I interpreted the instructions very literally, and implemented this task using 
 
 - General Organization:
 
-  - Working with vanilla HTML, CSS and JS was a nice reminder of how _good_ we have it with modern front-end tooling. Considering SCSS alone, with the ability to split CSS into multiple files for smoother workflow and improved readability/organization while optimizing the final CSS result. Or, using Babel to transpile ES6 into browser-readable syntax, _and_ minifying. Amazing!
+  - Working with vanilla HTML, CSS and JS was a nice reminder of how _good_ we have it with modern front-end tooling. As the CSS file grew, I'm reminded how awesome SCSS is for reducing overhead in development. Not to mention being able to use ES6 with Babel... the list goes on.
 
 ### What would I do if I had more time?
 
 - Add more animations; subtle things that happen as the user scrolls, clicks, or hovers.
 - Check in more browsers and devices.
-- Review Lighthouse and PageSpeed scores.
 - Review for SEO.
-- Audit accessibility.
-- Comment more to elaborate for the next person to inherit the code.
+- Audit accessibility further.
+  - Note: minor contrast issues were found by Axe, but in order to adhere to the design, nothing was adjusted in dev here.
+- Comment more descriptively to elaborate for the next person to inherit the code.
 - Add fallbacks for lack of JavaScript support.
 
 ### Checklist
