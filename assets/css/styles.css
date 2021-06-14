@@ -482,9 +482,8 @@ a.cta.alt2:hover {
 
   #top-header {
     position: fixed;
-    height: 100%;
+    height: 60px;
     max-height: 60px;
-    opacity: 1;
     overflow: hidden;
     background-color: rgba(12, 26, 59, 0.6);
     transition: all 750ms ease;
@@ -494,20 +493,21 @@ a.cta.alt2:hover {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background-color: rgba(12, 26, 59, 0.9);
-    opacity: 1;
+    height: 100%;
     max-height: 100vh;
   }
 
   #mobile-menu-toggle.open + #top-header .logo svg {
-    transform: translateY(0);
+    transform: translateY(0px);
   }
+
   #top-header .logo svg {
     transition-duration: 450ms;
     transform: translateY(-10px);
   }
 
   .top-header-inner {
-    position: fixed;
+    position: absolute;
     display: block;
     height: 100vh;
     text-align: center;
@@ -527,7 +527,7 @@ a.cta.alt2:hover {
     width: 100%;
     padding: 30px;
     text-align: center;
-    border-bottom: 1px solid #c5cfd8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     font-size: 1.5rem;
   }
 }
