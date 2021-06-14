@@ -14,16 +14,22 @@
 _I interpreted the instructions very literally, and implemented this task using only HTML, CSS and JavaScript. I did not opt to use jQuery, Bootstrap, Tailwind, or other libraries to speed up development due to the amount of overhead they can introduce into the installation (negatively affecting PageSpeed/Lighthouse scores, etc.)_
 
 - HTML:
+
   - HTML5 boilerplate based on: https://www.matuzo.at/blog/html-boilerplate/
+
 - CSS:
+
   - While using CSS variables here would've streamlined development, [they're not supported in any version of Internet Explorer](https://caniuse.com/css-variables) so they were avoided.
   - Eric Meyer's Reset CSS 2.0 was used.
+  - print.css is included, but not leveraged here.
+
 - JavaScript:
 
   - Built assuming JavaScript is enabled in the user's browser. Did not spend time including fallbacks, legacy browser version checks, or redirects for unsupported browsers (i.e., old IE)
   - Avoided ES6, as much is not supported in IE10+
 
 - General Organization:
+
   - Working with vanilla HTML, CSS and JS was a nice reminder of how _good_ we have it with modern front-end tooling. Considering SCSS alone, with the ability to split CSS into multiple files for smoother workflow and improved readability/organization while optimizing the final CSS result. Or, using Babel to transpile ES6 into browser-readable syntax, _and_ minifying. Amazing!
 
 ---
