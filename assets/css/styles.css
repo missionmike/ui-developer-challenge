@@ -326,6 +326,16 @@ a.cta {
   background-color: #6f97f6; /* Default */
 }
 
+a.btn {
+  transition: all 250ms ease;
+  display: inline-block;
+}
+
+.cta:active,
+.btn:active {
+  transform: scale(0.9);
+}
+
 a.cta:hover {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
   border: 1px solid white;
@@ -395,7 +405,7 @@ a.cta.alt2:hover {
   -webkit-filter: drop-shadow(0 0 0 transparent);
   filter: drop-shadow(0 0 0 transparent);
   transform: scale(1) translateZ(0);
-  transition: all 250ms linear;
+  transition: all 150ms linear;
 }
 
 .logo a:hover svg,
@@ -1070,7 +1080,7 @@ a.fx.has-arrow:hover svg {
   }
 }
 
-.block-4 .content.cta {
+.block-4 .content.dots-bg {
   padding: 50px 0;
   background-image: url(../svg/backgrounds/bg-dots2.svg);
   background-position: center center;
