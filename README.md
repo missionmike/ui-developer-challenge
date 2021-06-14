@@ -50,7 +50,7 @@ _I interpreted the instructions very literally, and implemented this task using 
 
 ---
 
-### Original Instructions:
+# Original Instructions:
 
 The purpose of this challenge is to test and measure a Front End engineer's ability to interpret and implement a sample user interface that is detailed by a provided design. In this document, we will present you with a scenario that is intended to help showcase your engineering talents and spark creative thinking and problem solving. We will be watching both the journey and the final product.
 
