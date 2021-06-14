@@ -22,6 +22,7 @@ _I interpreted the instructions very literally, and implemented this task using 
   - While using CSS variables here would've streamlined development, [they're not supported in any version of Internet Explorer](https://caniuse.com/css-variables) so they were avoided.
   - Eric Meyer's Reset CSS 2.0 was used.
   - print.css is included, but not leveraged here.
+  - Hamburger menu borrowed from: https://codepen.io/MissionMike/details/mBdBKe
 
 - JavaScript:
 
