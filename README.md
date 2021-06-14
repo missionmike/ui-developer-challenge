@@ -42,6 +42,7 @@ _I interpreted the instructions very literally, and implemented this task using 
   - Note: minor contrast issues were found by Axe, but in order to adhere to the design, nothing was adjusted in dev here.
 - Comment more descriptively to elaborate for the next person to inherit the code.
 - Add fallbacks for lack of JavaScript support.
+- Ensure it renders well enough in IE11.
 
 ### Checklist
 
